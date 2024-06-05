@@ -1,0 +1,49 @@
+!pip install requests
+import requests
+# Replace 'your_api_key' with your actual OpenWeatherMap API key
+API_KEY = 'your_api_key'
+BASE_URL = 'http://api.openweathermap.org/data/2.5/weather'
+def get_weather(city):
+    """
+    Fetches the weather data for the specified city from OpenWeatherMap API.
+    
+    Parameters:
+        city (str): The name of the city for which to fetch the weather data.
+        
+    Returns:
+        dict: The weather data if the request was successful, None otherwise.
+    """
+    # Construct the URL to fetch the weather data
+    url = f"{BASE_URL}?q={city}&appid={API_KEY}&units=metric"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
+def display_weather(data):
+    """
+    Displays the weather data in a readable format.
+    
+    Parameters:
+        data (dict): The weather data to display.
+    """
+    if data:
+        city = data['name']
+        temp = data['main']['temp']
+        description = data['weather'][0]['description']
+        humidity = data['main']['humidity']
+        wind_speed = data['wind']['speed']
+        
+        print(f"Weather in {city}:")
+        print(f"Temperature: {temp}°C")
+        print(f"Description: {description.capitalize()}")
+        print(f"Humidity: {humidity}%")
+        print(f"Wind Speed: {wind_speed} m/s")
+    else:
+        print("City not found or API error.")
+# Main script to get user input and display weather data
+city = input("Enter city name: ")
+weather_data = get_weather(city)
+display_weather(weather_data)
