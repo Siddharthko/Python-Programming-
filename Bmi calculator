@@ -1,0 +1,24 @@
+def calculate_bmi(weight, height):
+    """Calculate BMI given weight in kilograms and height in meters."""
+    bmi = weight / (height ** 2)
+    return bmi
+
+def get_bmi_category(bmi):
+    """Determine BMI category based on BMI value."""
+    if bmi < 18.5:
+        return "Underweight"
+    elif 18.5 <= bmi < 24.9:
+        return "Normal weight"
+    elif 25 <= bmi < 29.9:
+        return "Overweight"
+    else:
+        return "Obesity"
+
+# Input values
+weight_kg = float(input("Enter your weight in kilograms: "))
+height_m = float(input("Enter your height in meters: "))
+
+bmi = calculate_bmi(weight_kg, height_m)
+category = get_bmi_category(bmi)
+
+print(f"Your BMI is {bmi:.2f}, which falls into the category: {category}")
